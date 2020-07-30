@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  # Matomo
+  matomo:
+    image: matomo:3
+    ports:
+      - 80:80
+    environment:
+      MATOMO_DATABASE_HOST: mysql
+      MATOMO_DATABASE_USERNAME: ${DB_USER}
+      MATOMO_DATABASE_PASSWORD: ${DB_PASS}
+      MATOMO_DATABASE_DBNAME: ${DB_NAME}
+    volumes:
+      - matomo-local-files:/var/www/html
+
+  # MySQL database
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: 00b69236626d
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - matomo-local-data:/var/lib/mysql
+
+volumes:
+  matomo-local-data:
+    driver: local
+  matomo-local-files:
+    driver: local
