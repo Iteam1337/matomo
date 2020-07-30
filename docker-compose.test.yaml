@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  # A test page, for generating data in Matomo.
+  web:
+    build: test-web
+    ports:
+      - 8081:80
